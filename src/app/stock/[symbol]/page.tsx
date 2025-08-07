@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function StockPage({ params }: Props) {
+export default function StockPage({ params }: { params: { symbol: string } }) {
   const symbol = params.symbol;
   return <StockPageContent symbol={symbol} />;
 }
