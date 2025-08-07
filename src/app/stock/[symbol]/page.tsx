@@ -29,5 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function StockPage({ params }: Props) {
-  return <StockPageContent symbol={params.symbol} />;
+  const symbol = params.symbol;
+
+  return <StockPageContent symbol={symbol} />;
 }
