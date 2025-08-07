@@ -1,7 +1,7 @@
 import StockPageContent from "./StockPage";
 import { Metadata } from "next";
 
-export type Props = {
+type PageProps = {
   params: {
     symbol: string;
   };
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: { symbol: string } 
   };
 }
 
-export default function StockPage({ params }: { params: { symbol: string } }) {
+export default function StockPage({ params }: PageProps) {
   const symbol = params.symbol;
   return <StockPageContent symbol={symbol} />;
 }
