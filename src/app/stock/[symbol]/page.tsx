@@ -7,7 +7,7 @@ export type Props = {
   };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { symbol: string } }): Promise<Metadata> {
   const symbol = params.symbol.toUpperCase();
 
   return {
