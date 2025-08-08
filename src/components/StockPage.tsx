@@ -3,34 +3,32 @@
 import axios from "axios";
 import StockChart from "@/components/StockChart";
 import { useEffect, useState } from "react";
+import { PriceData, Metrics,Props  } from "@/types/type";
 
-type Props = {
-  symbol: string;
-};
-
-type PriceData = {
-  open: number;
-  high: number;
-  close: number;
-  low: number;
-  date: string;
-  volume: number;
-  value: number;
-  change: number;
-  percent: number;
-  prev_close: number;
-};
-
-type Metrics = {
-  currentPrice: number;
-  changePercent: number;
-};
 
 const StockPageContent = ({ symbol }: Props) => {
   const [data, setData] = useState<PriceData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [metrics, setMetrics] = useState<Metrics | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const favs = JSON.parse(localStorage.getItem("favoriteStocks") || "[]");
+    setIsFavorite(favs.includes(symbol));
+  }, [symbol]);
+
+  const toggleFavorite = () => {
+    const favs = JSON.parse(localStorage.getItem("favoriteStocks") || "[]");
+    let updatedFavs;
+    if (favs.includes(symbol)) {
+      updatedFavs = favs.filter((s: string) => s !== symbol);
+    } else {
+      updatedFavs = [...favs, symbol];
+    }
+    localStorage.setItem("favoriteStocks", JSON.stringify(updatedFavs));
+    setIsFavorite(!isFavorite);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,9 +56,6 @@ const StockPageContent = ({ symbol }: Props) => {
         setMetrics({
           currentPrice: lastPrice,
           changePercent: parseFloat(changePercent),
-       
-         
-      
         });
       } catch (err) {
         setError("Error loading data.");
@@ -73,24 +68,39 @@ const StockPageContent = ({ symbol }: Props) => {
   }, [symbol]);
 
   if (loading)
-    return <div className="p-6 text-gray-500">Loading {symbol} data...</div>;
-  if (error) return <div className="p-6 text-red-500">{error}</div>;
+    return (
+      <div className="p-6 text-gray-500 flex justify-center items-center h-screen">
+        Loading {symbol} data...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="p-6 text-red-500 flex justify-center items-center h-screen">
+        {error}
+      </div>
+    );
 
   return (
     <div className="p-6 space-y-8">
-      <div className="border-b pb-4">
-        <h1 className="text-3xl font-bold">{symbol} Stock Overview</h1>
-        <p className="text-gray-600 text-sm">
-          Intraday performance & analytics
-        </p>
+      <div className="flex items-center justify-between border-b pb-4">
+        <div>
+          <h1 className="text-3xl font-bold">{symbol} Stock Overview</h1>
+          <p className="text-gray-600 text-sm">Intraday performance & analytics</p>
+        </div>
+        <button
+          onClick={toggleFavorite}
+          className={`px-4 py-2 rounded cursor-pointer ${
+            isFavorite ? "bg-red-100 text-red-600" : "bg-blue-100 text-blue-600"
+          }`}
+        >
+          {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+        </button>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         <div className="bg-white rounded shadow p-4">
           <p className="text-sm text-gray-500">Current Price</p>
-          <p className="text-xl font-bold">
-            ₹{metrics?.currentPrice.toFixed(2)}
-          </p>
+          <p className="text-xl font-bold">₹{metrics?.currentPrice.toFixed(2)}</p>
         </div>
         <div className="bg-white rounded shadow p-4">
           <p className="text-sm text-gray-500">Change %</p>
@@ -102,8 +112,6 @@ const StockPageContent = ({ symbol }: Props) => {
             {metrics?.changePercent}%
           </p>
         </div>
-
-      
       </div>
 
       <div className="bg-white p-6 rounded shadow w-full">

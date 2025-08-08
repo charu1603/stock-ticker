@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 export default function Navbar () {
     return (
       <nav className="relative z-20 w-full bg-white shadow-md rounded-b-lg">
@@ -10,24 +10,17 @@ export default function Navbar () {
             </div>
 
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <a
+              <Link
                 href="#"
                 className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-blue-500 transition-colors duration-200"
               >
                 Dashboard
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-blue-500 hover:text-gray-900 transition-colors duration-200"
-              >
-                Watchlist
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-blue-500 hover:text-gray-900 transition-colors duration-200"
-              >
-                Portfolio
-              </a>
+              </Link>
+              <div className="space-x-4">
+        <Link href="/favouriteStock" className="hover:underline">
+          Favorites
+        </Link>
+      </div>
             </div>
 
             {/* Profile Icon or CTA (placeholder) */}

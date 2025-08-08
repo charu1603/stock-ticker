@@ -3,11 +3,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { StockResult } from "@/types/type";
 
-type StockResult = {
-  name: string;
-  symbol: string;
-};
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
