@@ -1,17 +1,19 @@
 import { Metadata } from "next";
-import StockPageContent from "./StockPage";
+import StockPageContent from "../../../components/StockPage";
 
-type Props = {
-  params: { symbol: string };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: any): Promise<Metadata> {
   const capitalizedSymbol = params.symbol.toUpperCase();
 
   return {
     title: `${capitalizedSymbol} Stock Details | Stock Ticker App`,
     description: `Live chart, price updates, and historical data for ${capitalizedSymbol}.`,
-    keywords: [`${capitalizedSymbol}`, "stock chart", "NSE", "BSE", "market data"],
+    keywords: [
+      `${capitalizedSymbol}`,
+      "stock chart",
+      "NSE",
+      "BSE",
+      "market data",
+    ],
     openGraph: {
       title: `${capitalizedSymbol} - Live Stock Price`,
       description: `See real-time and intraday charts for ${capitalizedSymbol}.`,
@@ -28,6 +30,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function StockPage({ params }: Props) {
+export default function StockPage({ params }: any) {
   return <StockPageContent symbol={params.symbol} />;
 }

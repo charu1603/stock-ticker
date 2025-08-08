@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Track live stock prices, view interactive charts and search for stock data using our modern interface.",
   keywords: ["stocks", "live market", "NSE", "BSE", "finance", "charts"],
   openGraph: {
-    title: "Stock Ticker App",
+    title: "Stock Ticker App",     
     description: "Track live prices and view interactive charts of Indian stocks.",
     url: "https://yourdomain.com",
     images: [
