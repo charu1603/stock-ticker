@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Stock Ticker App",     
     description: "Track live prices and view interactive charts of Indian stocks.",
-    url: "https://yourdomain.com",
+    url: "https://stock-ticker-pi.vercel.app/",
     images: [
       {
         url: "/og-image.png",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://yourdomain.com",
+    canonical: "https://stock-ticker-pi.vercel.app/",
   },
 };
 

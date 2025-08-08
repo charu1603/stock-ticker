@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
     openGraph: {
       title: `${capitalizedSymbol} - Live Stock Price`,
       description: `See real-time and intraday charts for ${capitalizedSymbol}.`,
-      url: `https://yourdomain.com/stock/${capitalizedSymbol}`,
+      url: `https://stock-ticker-pi.vercel.app/stock/${capitalizedSymbol}`,
       type: "article",
     },
     twitter: {
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
       title: `${capitalizedSymbol} - Live Price & Chart`,
     },
     alternates: {
-      canonical: `https://yourdomain.com/stock/${capitalizedSymbol}`,
+      canonical: `https://stock-ticker-pi.vercel.app/stock/${capitalizedSymbol}`,
     },
   };
 }

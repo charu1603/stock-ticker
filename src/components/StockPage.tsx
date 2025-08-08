@@ -62,10 +62,9 @@ const StockPageContent = ({ symbol }: Props) => {
         setMetrics({
           currentPrice: lastPrice,
           changePercent: parseFloat(changePercent),
-          high52w: lastPrice * 1.2, // Mocked
-          low52w: lastPrice * 0.8, // Mocked
-          peRatio: 24.5, // Mocked
-          marketCap: "₹1.5T", // Mocked
+       
+         
+      
         });
       } catch (err) {
         setError("Error loading data.");
@@ -107,22 +106,8 @@ const StockPageContent = ({ symbol }: Props) => {
             {metrics?.changePercent}%
           </p>
         </div>
-        <div className="bg-white rounded shadow p-4">
-          <p className="text-sm text-gray-500">52W High</p>
-          <p className="text-xl font-bold">₹{metrics?.high52w.toFixed(2)}</p>
-        </div>
-        <div className="bg-white rounded shadow p-4">
-          <p className="text-sm text-gray-500">52W Low</p>
-          <p className="text-xl font-bold">₹{metrics?.low52w.toFixed(2)}</p>
-        </div>
-        <div className="bg-white rounded shadow p-4">
-          <p className="text-sm text-gray-500">P/E Ratio</p>
-          <p className="text-xl font-bold">{metrics?.peRatio}</p>
-        </div>
-        <div className="bg-white rounded shadow p-4">
-          <p className="text-sm text-gray-500">Market Cap</p>
-          <p className="text-xl font-bold">{metrics?.marketCap}</p>
-        </div>
+
+      
       </div>
 
       <div className="bg-white p-6 rounded shadow w-full">
