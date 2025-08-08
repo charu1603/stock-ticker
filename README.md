@@ -8,6 +8,7 @@ A dynamic, server-rendered stock tracking application built with **Next.js 14** 
 -  Interactive intraday charts data
 - Stock metrics: current price, etc.
 -  Fast and dynamic routing using Next.js App Router
+-  save your favourite stock using local storage
 
 ## 🧩 Tech Stack
 
