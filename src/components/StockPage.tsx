@@ -24,10 +24,6 @@ type PriceData = {
 type Metrics = {
   currentPrice: number;
   changePercent: number;
-  high52w: number;
-  low52w: number;
-  peRatio: number;
-  marketCap: string;
 };
 
 const StockPageContent = ({ symbol }: Props) => {
