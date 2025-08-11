@@ -1,9 +1,7 @@
 import { Metadata } from "next";
 import StockPageContent from "../../../components/StockPage";
 import axios from "axios";
-interface Params {
-  params: { symbol: string };
-}
+
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const capitalizedSymbol = params.symbol.toUpperCase();
 
@@ -33,7 +31,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   };
 }
 
-export default async function StockPage({ params }: Params) {
+export default async function StockPage({ params }: any) {
   const symbol = params.symbol || "";
 
   let companyName = symbol;
