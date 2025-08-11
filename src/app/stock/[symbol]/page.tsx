@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import StockPageContent from "../../../components/StockPage";
-
+import axios from "axios";
+interface Params {
+  params: { symbol: string };
+}
 export async function generateMetadata({ params }: any): Promise<Metadata> {
   const capitalizedSymbol = params.symbol.toUpperCase();
 
@@ -30,6 +33,23 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   };
 }
 
-export default function StockPage({ params }: any) {
-  return <StockPageContent symbol={params.symbol} />;
+export default async function StockPage({ params }: Params) {
+  const symbol = params.symbol || "";
+
+  let companyName = symbol;
+
+  try {
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_HOST}/api/assignment/search?keyword=${symbol}&length=1`
+    );
+
+    if (res.data && res.data.length > 0) {
+      companyName = res.data[0].company;
+      console.log(companyName)
+    }
+  } catch (error) {
+   
+  }
+
+  return <StockPageContent symbol={symbol} name={companyName} />;
 }

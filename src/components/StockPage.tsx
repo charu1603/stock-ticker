@@ -3,10 +3,9 @@
 import axios from "axios";
 import StockChart from "@/components/StockChart";
 import { useEffect, useState } from "react";
-import { PriceData, Metrics,Props  } from "@/types/type";
+import { PriceData, Metrics, Props } from "@/types/type";
 
-
-const StockPageContent = ({ symbol }: Props) => {
+const StockPageContent = ({ symbol, name }: Props) => {
   const [data, setData] = useState<PriceData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -84,8 +83,10 @@ const StockPageContent = ({ symbol }: Props) => {
     <div className="p-6 space-y-8">
       <div className="flex items-center justify-between border-b pb-4">
         <div>
-          <h1 className="text-3xl font-bold">{symbol} Stock Overview</h1>
-          <p className="text-gray-600 text-sm">Intraday performance & analytics</p>
+          <h1 className="text-3xl font-bold">{name} Stock Overview</h1>
+          <p className="text-gray-600 text-sm">
+            Intraday performance & analytics
+          </p>
         </div>
         <button
           onClick={toggleFavorite}
@@ -100,7 +101,9 @@ const StockPageContent = ({ symbol }: Props) => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         <div className="bg-white rounded shadow p-4">
           <p className="text-sm text-gray-500">Current Price</p>
-          <p className="text-xl font-bold">₹{metrics?.currentPrice.toFixed(2)}</p>
+          <p className="text-xl font-bold">
+            ₹{metrics?.currentPrice.toFixed(2)}
+          </p>
         </div>
         <div className="bg-white rounded shadow p-4">
           <p className="text-sm text-gray-500">Change %</p>

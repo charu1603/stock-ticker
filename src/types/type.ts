@@ -4,6 +4,7 @@ export type StockResult = {
 };
 export type Props = {
   symbol: string;
+  name:string;
 };
 
 export type PriceData = {
