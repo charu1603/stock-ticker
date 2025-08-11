@@ -1,6 +1,39 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
 import SearchBar from "./SearchBar";
 import Navbar from "./Navbar";
+
+interface Stock {
+  symbol: string;
+  per_change: number;
+}
+
 const HomePage = () => {
+  const [stocks, setStocks] = useState<Stock[]>([]);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    const fetchStocks = async () => {
+      try {
+        const res = await axios.get(
+         `${process.env.NEXT_PUBLIC_API_HOST}/api/index/constitients/NIFTY/?ascending=false&by=per_change&page=1&per_page=25`
+        );
+
+        if (res.data && res.data.results) {
+          setStocks(res.data.results);
+        } else {
+          setError("No stock data found.");
+        }
+      } catch (err) {
+        setError("Failed to fetch stock data.");
+      }
+    };
+
+    fetchStocks();
+  }, []);
+
   return (
     <div className="relative bg-white overflow-hidden">
       <Navbar />
@@ -10,12 +43,32 @@ const HomePage = () => {
           className="absolute inset-0"
           style={{
             backgroundImage: `
-            linear-gradient(to right, #000 1px, transparent 1px),
-            linear-gradient(to bottom, #000 1px, transparent 1px)
-          `,
+              linear-gradient(to right, #000 1px, transparent 1px),
+              linear-gradient(to bottom, #000 1px, transparent 1px)
+            `,
             backgroundSize: "40px 40px",
           }}
-        ></div>
+        />
+      </div>
+
+
+      <div className="w-full bg-gray-100 py-2 overflow-hidden border-b border-gray-300">
+        {error ? (
+          <p className="text-red-500 text-center">{error}</p>
+        ) : (
+          <div className="ticker whitespace-nowrap will-change-transform animate-marquee">
+            {stocks.concat(stocks).map((stock, index) => (
+              <span
+                key={index}
+                className={`inline-block px-6 ${
+                  stock.per_change >= 0 ? "text-green-600" : "text-red-600"
+                } font-semibold`}
+              >
+                {stock.symbol}: {stock.per_change.toFixed(2)}%
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,6 +104,23 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0%);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .animate-marquee {
+          display: inline-block;
+          padding-left: 100%;
+          animation: marquee 20s linear infinite;
+        }
+      `}</style>
     </div>
   );
 };
